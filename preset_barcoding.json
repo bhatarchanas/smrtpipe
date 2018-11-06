@@ -1,0 +1,64 @@
+{
+  "name": "Pipeline Preset name smrtlink-job-settings",
+  "options": [{
+    "id": "pbsmrtpipe.options.debug_mode",
+    "value": false,
+    "optionTypeId": "boolean"
+  }, {
+    "id": "pbsmrtpipe.options.max_nproc",
+    "value": 15,
+    "optionTypeId": "integer"
+  }, {
+    "id": "pbsmrtpipe.options.tmp_dir",
+    "value": "/scratch/archana/smrtlink_test/",
+    "optionTypeId": "string"
+  }, {
+    "id": "pbsmrtpipe.options.chunk_mode",
+    "value": true,
+    "optionTypeId": "boolean"
+  }, {
+    "id": "pbsmrtpipe.options.max_total_nproc",
+    "value": 1000,
+    "optionTypeId": "integer"
+  }, {
+    "id": "pbsmrtpipe.options.max_nchunks",
+    "value": 24,
+    "optionTypeId": "integer"
+  }, {
+    "id": "pbsmrtpipe.options.distributed_mode",
+    "value": true,
+    "optionTypeId": "boolean"
+  }, {
+    "id": "pbsmrtpipe.options.exit_on_failure",
+    "value": false,
+    "optionTypeId": "boolean"
+  }, {
+    "id": "pbsmrtpipe.options.cluster_manager",
+    "value": "/opt/pacbio/smrtlink/userdata/generated/config/jms_templates",
+    "optionTypeId": "string"
+  }, {
+    "id": "pbsmrtpipe.options.max_nworkers",
+    "value": 100,
+    "optionTypeId": "integer"
+  }],
+  "taskOptions": [{
+    "id": "pbcoretools.task_options.new_dataset_name",
+    "value": "job_output",
+    "optionTypeId": "string"
+  }, {
+    "id": "lima.task_options.library_same_tc",
+    "value": true,
+    "optionTypeId": "boolean"
+  }, {
+    "id": "lima.task_options.minscore",
+    "value": 0,
+    "optionTypeId": "integer"
+  }, {
+    "id": "lima.task_options.peek_guess_tc",
+    "value": true,
+    "optionTypeId": "boolean"
+  }],
+  "presetId": "smrtlink-job-settings",
+  "title": "Options for Pipeline Preset Template smrtlink-job-settings",
+  "pipelineId": "pbsmrtpipe.pipelines.sa3_ds_barcode2_manual"
+}
