@@ -1,0 +1,12 @@
+pool_id	path_for_lima	barcode	sample
+Samples_for_Cell3	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	5	lbc005_31
+Samples_for_Cell3	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	6	lbc006_41
+Samples_for_Cell3	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	13	lbc013_32
+Samples_for_Cell3	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	14	lbc014_42
+Samples_for_Cell3	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	21	lbc021_33
+Samples_for_Cell4	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	27	lbc027_24
+Samples_for_Cell4	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	28	lbc028_34
+Samples_for_Cell4	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	37	lbc037_25
+Samples_for_Cell4	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	50	lbc050_26
+Samples_for_Cell4	/data/pacbio/sequel/userdata/data_root/r54257_20180712_171011/3_C01/m54257_180713_140518.subreadset.xml	58	lbc058_27
+
