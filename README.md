@@ -17,7 +17,7 @@ SMRT pipe comes installed with the SMRT analysis software suite. No additional i
 
 ### Arguments:
   * `SMRTPIPE (-p)` - The path where smrtpipe is located. Use full path, avoid relative paths.
-  * `OUTDIR (-o) ` - Path to where you want your result files to be stored.
+  * `OUTDIR (-o) ` - Path to where you want your intermediate (LIMA and CCS2) result files to be stored.
   * `SAMPLE_INFO_FILE (-s)` – This is the file which will have a list of all the PacBio jobs which are to be demutiplexed and run thorugh CCS2. The header of this file (first row) should have column names corresponding to pool_id, path_for_lima, barcode, and sample. These column names HAVE TO BE exactly as is described here because the program initializes data in each column based on these column names. Data in each column is described as follows:  
       1. pool_id – The name of each pool, i.e., all the samples pooled togteher into one set will have the same pool_id.    
       2. path_for_lima – Path to where the subreadset.xml file is located for this particular pool. This is the path that is listed as "Data path" on SMRT link. 
@@ -28,3 +28,7 @@ SMRT pipe comes installed with the SMRT analysis software suite. No additional i
 ### Usage:
 Run the smrtpipe.rb script along with the arguments that are required as input.  
 `ruby smrtpipe.rb -p xx/bin/pbsmrtpipe -s sample_key.txt -o out_dir_name -b pacbio_barcodes_96.fasta`
+
+### Outputs:
+1. reads folder - Consists of FASTQ files after running LIMA and CCS2. One FASTQ file is produced for every sample that was given in the sample key file. 
+2. reads_2 folder - Consists of FASTQ files after running LIMA and CCS2, and also includes the number of ccs passes and barcode labels in the FASTQ read headers. One FASTQ file is produced for every sample that was given in the sample key file. 
