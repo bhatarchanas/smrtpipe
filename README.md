@@ -26,5 +26,5 @@ SMRT pipe comes installed with the SMRT analysis software suite. No additional i
   * `BARCODE_FILE (-b)` - A FASTA file with all the barcode sequences.
 
 ### Usage:
-Run the smrtpipe.rb script along with the arguments that are required as input.
+Run the smrtpipe.rb script along with the arguments that are required as input.  
 `ruby smrtpipe.rb -p xx/bin/pbsmrtpipe -s sample_key.txt -o out_dir_name -b pacbio_barcodes_96.fasta`
