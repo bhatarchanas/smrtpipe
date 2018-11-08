@@ -15,6 +15,9 @@ SMRT pipe comes installed with the SMRT analysis software suite. No additional i
 2. Barcodes file with all the barcodes that were used for pooling. File should be in FASTA format. This script only works for symmetric barcodes. 
 3. Sample file with information regarding each sample. 
 
+### Preset files:
+Preset files are json format files which have all the settings required to run the LIMA command for demultiplexing and CCS2 command for to find the consensus sequence from subreads. **Please make sure to change the value for id/setting "pbsmrtpipe.options.tmp_dir" in both the json files**. This should point to a path where you want your temporary files to be stored. Other settings like number of CCS passes, pred accuracy, etc., can also be adjusted based on your requirements using the preset_ccs.json file. 
+
 ### Arguments:
   * `SMRTPIPE (-p)` - The path where smrtpipe is located. Use full path, avoid relative paths.
   * `OUTDIR (-o) ` - Path to where you want your intermediate (LIMA and CCS2) result files to be stored.
