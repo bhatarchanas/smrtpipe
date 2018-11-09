@@ -8,7 +8,27 @@
 SMRT pipe is a tool from PacBio which is useful for secondary analysis of PacBio data. This program helps run lima (for demultiplexing) and CCS2 on microbiome data from PacBio's new Sequel machine. 
 
 ### Installation:
-SMRT pipe comes installed with the SMRT analysis software suite. No additional installation is required to run this script. 
+1. SMRT pipe comes installed with the SMRT analysis software suite. No additional installation is required to run this script. 
+2. Install Ruby v2.2.1 or greater 
+   For Fedora:
+   ```
+   $ sudo dnf install ruby
+   ```
+
+   For Centos/RHEL
+   ```
+   $ sudo yum install ruby
+   ```
+
+   Install the 'bundler' gem:
+   ```
+   $ gem install bundler
+   ```
+
+   To install dependencies run the command   
+   ```
+   $ bundle
+   ```
 
 ### Data Prerequisites:
 1. Sequencing data from microbiome samples which were pooled and sequenced on the Sequel.
