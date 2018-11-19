@@ -47,11 +47,11 @@ pools_hash.each do |each_pool, each_path|
 	# Run lima on each pool
 	if Dir.exist?("#{out_dir}/#{each_pool}_lima")
 		FileUtils.rm_rf("#{out_dir}/#{each_pool}_lima")
-		puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=/data/shared/homes/archana/projects/smrtpipe_prereqs/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima"
-		`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=/data/shared/homes/archana/projects/smrtpipe_prereqs/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima`
+		puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima"
+		`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima`
 	else
-		puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=/data/shared/homes/archana/projects/smrtpipe_prereqs/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima"
-		`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=/data/shared/homes/archana/projects/smrtpipe_prereqs/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima`
+		puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima"
+		`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima`
 	end
 
 	# Run ccs on each sample in each pool
@@ -61,11 +61,11 @@ pools_hash.each do |each_pool, each_path|
 		#puts bc_for_file[1]
 		if Dir.exist?("#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs")
 			FileUtils.rm_rf("#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs")
-			puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_ccs -e eid_subread:#{subxml_file} --preset-json=/data/shared/homes/archana/projects/smrtpipe_prereqs/preset_ccs.json --output-dir=#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs"
-			`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_ccs -e eid_subread:#{subxml_file} --preset-json=/data/shared/homes/archana/projects/smrtpipe_prereqs/preset_ccs.json --output-dir=#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs`
+			puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_ccs -e eid_subread:#{subxml_file} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_ccs.json --output-dir=#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs"
+			`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_ccs -e eid_subread:#{subxml_file} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_ccs.json --output-dir=#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs`
 		else
-			puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_ccs -e eid_subread:#{subxml_file} --preset-json=/data/shared/homes/archana/projects/smrtpipe_prereqs/preset_ccs.json --output-dir=#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs"
-			`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_ccs -e eid_subread:#{subxml_file} --preset-json=/data/shared/homes/archana/projects/smrtpipe_prereqs/preset_ccs.json --output-dir=#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs`
+			puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_ccs -e eid_subread:#{subxml_file} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_ccs.json --output-dir=#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs"
+			`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_ccs -e eid_subread:#{subxml_file} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_ccs.json --output-dir=#{out_dir}/#{each_pool}_lima_#{bc_for_file[1]}_ccs`
 		end
 	end
 end
@@ -106,8 +106,9 @@ end
 samples_hash.each do |key, value|
 	#puts key, value.inspect
 	ccs_bc = value[0].to_i - 1
-	if File.exists?("#{out_dir}/#{value[1]}_lima_lbc#{value[0]}--lbc#{value[0]}_ccs/tasks/pbcoretools.tasks.bam2fastq_ccs-0/ccs.#{ccs_bc}__#{ccs_bc}.fastq")
-		FileUtils.cp("#{out_dir}/#{value[1]}_lima_lbc#{value[0]}--lbc#{value[0]}_ccs/tasks/pbcoretools.tasks.bam2fastq_ccs-0/ccs.#{ccs_bc}__#{ccs_bc}.fastq", "reads/#{key}.fastq")
+	if File.exists?("#{out_dir}/#{value[1]}_lima_lbc#{value[0]}--lbc#{value[0]}_ccs/tasks/pbcoretools.tasks.bam2fastq_ccs-0/ccs.fastq.zip")
+		FileUtils.cp("#{out_dir}/#{value[1]}_lima_lbc#{value[0]}--lbc#{value[0]}_ccs/tasks/pbcoretools.tasks.bam2fastq_ccs-0/ccs.fastq.zip", "reads/#{key}.fastq.zip")
+		`unzip reads/#{key}.fastq.zip`
 	else
 		puts "Missing file #{key}.fastq"
 	end
