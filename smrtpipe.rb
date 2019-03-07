@@ -43,6 +43,7 @@ sample_file.each_with_index do |line, index|
 end
 #puts pools_hash
 
+
 pools_hash.each do |each_pool, each_path|
 	# Run lima on each pool
 	if Dir.exist?("#{out_dir}/#{each_pool}_lima")
@@ -86,6 +87,8 @@ list_of_ccs_bam.each do |each_ccs_bam|
 	`samtools view #{each_ccs_bam} | cut -f1,15 > np_files/#{ccs_bam_split[4]}_#{ccs_bam_split[6]}.txt`
 end	
 
+
+
 # Read each of the np files and create a hash with read name and num of passes
 np_hash = {}
 Dir.glob("np_files/*.txt") do |np_file|
@@ -96,6 +99,7 @@ Dir.glob("np_files/*.txt") do |np_file|
 	end
 end
 #puts np_hash, np_hash.length
+
 
 # Create directory in pwd which will have all fastq files
 unless File.directory?("reads")
@@ -108,7 +112,7 @@ samples_hash.each do |key, value|
 	ccs_bc = value[0].to_i - 1
 	if File.exists?("#{out_dir}/#{value[1]}_lima_lbc#{value[0]}--lbc#{value[0]}_ccs/tasks/pbcoretools.tasks.bam2fastq_ccs-0/ccs.fastq.zip")
 		FileUtils.cp("#{out_dir}/#{value[1]}_lima_lbc#{value[0]}--lbc#{value[0]}_ccs/tasks/pbcoretools.tasks.bam2fastq_ccs-0/ccs.fastq.zip", "reads/#{key}.fastq.zip")
-		`unzip reads/#{key}.fastq.zip`
+		`unzip -o reads/#{key}.fastq.zip && mv ccs.unknown.*.fastq reads/#{key}.fastq`
 	else
 		puts "Missing file #{key}.fastq"
 	end
