@@ -1,8 +1,10 @@
-require 'trollop'
+#!/usr/bin/env ruby
+
+require 'optimist'
 require 'bio'
 require 'fileutils'
 
-opts = Trollop::options do
+opts = Optimist::options do
 	opt :smrtpipe, "Path for smrtpipe location", :type => :string, :short => "-p"
 	opt :outdir, "Path to the directory where resultant data files should be dumped", :type => :string, :short => "-o"
 	opt :samplefile, "File with all the sample information", :type => :string, :short => "-s"
@@ -47,11 +49,11 @@ pools_hash.each do |each_pool, each_path|
 	# Run lima on each pool
 	if Dir.exist?("#{out_dir}/#{each_pool}_lima")
 		FileUtils.rm_rf("#{out_dir}/#{each_pool}_lima")
-		puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima"
-		`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima`
+		puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima"
+		`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima`
 	else
-		puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima"
-		`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode2_manual -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima`
+		puts "#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima"
+		`#{smrt_pipe_path} pipeline-id pbsmrtpipe.pipelines.sa3_ds_barcode -e eid_barcode:#{bc_file} -e eid_subread:#{each_path} --preset-json=#{File.expand_path(File.dirname(__FILE__))}/preset_barcoding.json --output-dir=#{out_dir}/#{each_pool}_lima`
 	end
 
 	# Run ccs on each sample in each pool
