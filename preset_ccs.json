@@ -10,7 +10,7 @@
     "optionTypeId": "integer"
   }, {
     "id": "pbsmrtpipe.options.tmp_dir",
-    "value": "/scratch/archana/smrtlink_test/",
+    "value": "/scratch/jearl/",
     "optionTypeId": "string"
   }, {
     "id": "pbsmrtpipe.options.chunk_mode",

@@ -10,7 +10,7 @@
     "optionTypeId": "integer"
   }, {
     "id": "pbsmrtpipe.options.tmp_dir",
-    "value": "/scratch/archana/smrtlink_test/",
+    "value": "/scratch/jearl/",
     "optionTypeId": "string"
   }, {
     "id": "pbsmrtpipe.options.chunk_mode",
@@ -60,5 +60,5 @@
   }],
   "presetId": "smrtlink-job-settings",
   "title": "Options for Pipeline Preset Template smrtlink-job-settings",
-  "pipelineId": "pbsmrtpipe.pipelines.sa3_ds_barcode2_manual"
+  "pipelineId": "pbsmrtpipe.pipelines.sa3_ds_barcode"
 }
