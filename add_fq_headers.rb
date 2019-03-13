@@ -3,6 +3,7 @@
 require 'optimist'
 require 'bio'
 require 'fileutils'
+require 'daru'
 
 =begin
 This script is to add important header information to the ccs fastq files, including the barcode label and number of passes
@@ -19,12 +20,17 @@ opts = Optimist::options do
 	opt :barcodefile, "File with all barcodes in a FASTA format", type: :string, short: "-b", required: true
 end 
 
-File.directory?(opts[:bam_dir])  ? bam_dir     = opts[:bam_dir]     : abort("Directory to Bam files must exist and be a directory")
-File.exists?(opts[:samplefile])  ? sample_file = opts[:samplefile]  : abort("'sample file' must exist: a tab delimited file of sample information")
-File.exists?(opts[:barcodefile]) ? bc_file     = opts[:barcodefile] : abort("Barcode fasta file must exist")
+File.directory?(opts[:bam_dir]) ? bam_dir     = opts[:bam_dir]    : abort("Directory to Bam files must exist and be a directory")
+File.exists?(opts[:samplefile]) ? sample_file = opts[:samplefile] : abort("'sample file' must exist: a tab delimited file of sample information")
+File.exists?(opts[:outdir])     ? out_dir     = opts[:outdir]     : abort("Output directory must be entered")
 
 #Not in the options list, but required for the completion of this script
 abort("Missing the ccs.fastq.zip file in your #{bam_dir}!") unless File.exists?("#{bam_dir}/tasks/pbcoretools.tasks.bam2fastq_ccs-0/ccs.fastq.zip")
+
+# Create directory in current dir which will have all mod headers fastqs files
+abort("Something wrong with the output directory") if out_dir.nil?
+FileUtils.mkdir_p(out_dir) unless File.directory?(out_dir)
+abort("Why is this not creating the directory?") unless File.directory?(out_dir)
 
 # Get a list of all ccs bam files
 list_of_ccs_bam = Dir.glob("#{bam_dir}/tasks/pbccs.tasks.ccs-*/ccs.bam")
@@ -55,26 +61,26 @@ FileUtils.mkdir_p("tmp") unless File.directory?("tmp")
 #Fancy dataframe fun with daru
 samp_info = Daru::DataFrame.from_csv(sample_file, opts = {:col_sep => "\t"})
 
+
 #Unzip the ccs fastqs and put them in a temporary directory
 `unzip -o #{bam_dir}/tasks/pbcoretools.tasks.bam2fastq_ccs-0/ccs.fastq.zip -d tmp `
-
-# Create directory in pwd which will have all mod headers fastqs files
-FileUtils.mkdir_p(opts[:outdir]) unless File.directory?(opts[:outdir])
 
 
 # Loop through all the files in reads directory
 Dir.glob("tmp/*.fastq") do |fastq_file|
-	fq_basename = File.basename(fastq_file, '.fastq')
-	bc_num = /\.+(\d+).+/.match(fq_basename)[0]
-	samp_name = samp_info.where(samp_info['barcode'].eq(bc_num))['sample'].to_a[0]
-	fastq_open = Bio::FlatFile.auto(fastq_file)
-	fq_out_file = File.open("#{opts[:outdir]}/#{samp_name}.fq", "w")
-	fastq_open.each do |entry|
-		fq_out_file.puts("@#{entry.definition};barcodelabel=#{fq_basename};ccs=#{np_hash[entry.definition]};")
-		fq_out_file.puts(entry.naseq.upcase)
-		fq_out_file.puts("+")
-		fq_out_file.puts(entry.quality_string)
-	end
+  fq_basename = File.basename(fastq_file, '.fastq')
+  bc_num = /\.+(\d+).+/.match(fq_basename)[1]
+  samp_name = samp_info.where(samp_info['barcode'].eq(bc_num.to_i))['sample'].to_a[0]
+  warn("Couldn't find #{bc_num}") if samp_name.nil?
+  next if samp_name.nil?
+  fq_out_file = File.open("#{out_dir}/#{samp_name}.fq", "w")
+  Bio::FlatFile.auto(fastq_file).each do |entry|
+    fq_out_file.puts("@#{entry.definition};barcodelabel=lbc#{bc_num}--lbc#{bc_num};ccs=#{np_hash[entry.definition]};")
+    fq_out_file.puts(entry.naseq.upcase)
+    fq_out_file.puts("+")
+    fq_out_file.puts(entry.quality_string)
+  end
+  fq_out_file.close
 end
 
 #remove the tmp dir
